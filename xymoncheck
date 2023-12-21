@@ -16,19 +16,11 @@
 //" );
 
 waitForKeyElements ("[src$='red-ack.gif']", replaceCritAck);
-//debugging
-//waitForKeyElements ("[src$='green.gif']", newreplaceCrit);
-waitForKeyElements ("[src$='red-recent.gif']", newreplaceCrit);
-waitForKeyElements ("[src$='yellow-recent.gif']", newreplaceWarn);
+waitForKeyElements ("[src$='red-recent.gif']", replaceCrit);
+waitForKeyElements ("[src$='yellow-recent.gif']", replaceWarn);
 
 
 function replaceCrit (jNode) {
-    var oldSrc  = jNode.attr ("src");
-    jNode.attr("alt", "&#129397;" + jNode.attr("alt").split(":")[2]);
-    jNode.replaceWith(jNode.attr("alt"));
-}
-
-function newreplaceCrit (jNode) {
     var oldSrc  = jNode.attr ("src");
     if (jNode.attr("alt") !== 'red' ) {
         jNode.attr("alt", "&#129397;" + jNode.attr("alt").split(":")[2]);
@@ -47,13 +39,6 @@ function replaceCritAck (jNode) {
 }
 
 function replaceWarn (jNode) {
-    var oldSrc  = jNode.attr ("src");
-//    jNode.attr("alt", "W " + jNode.attr("alt").split(":")[2]);
-    jNode.attr("alt", "&#128577;" + jNode.attr("alt").split(":")[2]);
-    jNode.replaceWith(jNode.attr("alt"));
-}
-
-function newreplaceWarn (jNode) {
     var oldSrc  = jNode.attr ("src");
     if (jNode.attr("alt") !== 'yellow' ) {
         jNode.attr("alt", "&#128577;" + jNode.attr("alt").split(":")[2]);
