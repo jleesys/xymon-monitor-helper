@@ -1,0 +1,66 @@
+// Replaces current warn/crit icons on xYmon Dashboard to include time duration.
+// ==UserScript==
+// @name     xYmon Check
+// @match    http://172.31.100.22/*
+// @include    http://172.16.100.72/*
+// @include  http://10.231.22.196/dashboards/bbnewnagios.html
+// @require  http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
+// @require  https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @grant    GM_addStyle
+// ==/UserScript==
+
+//GM_addStyle ( "                                 \
+//    * {                                         \
+//        background-image: none !important;      \
+//    }                                           \
+//" );
+
+waitForKeyElements ("[src$='red-ack.gif']", replaceCritAck);
+//debugging
+//waitForKeyElements ("[src$='green.gif']", newreplaceCrit);
+waitForKeyElements ("[src$='red-recent.gif']", newreplaceCrit);
+waitForKeyElements ("[src$='yellow-recent.gif']", newreplaceWarn);
+
+
+function replaceCrit (jNode) {
+    var oldSrc  = jNode.attr ("src");
+    jNode.attr("alt", "&#129397;" + jNode.attr("alt").split(":")[2]);
+    jNode.replaceWith(jNode.attr("alt"));
+}
+
+function newreplaceCrit (jNode) {
+    var oldSrc  = jNode.attr ("src");
+    if (jNode.attr("alt") !== 'red' ) {
+        jNode.attr("alt", "&#129397;" + jNode.attr("alt").split(":")[2]);
+        jNode.replaceWith(jNode.attr("alt"));
+    } else {
+        jNode.attr("alt", "&#129397;");
+        jNode.replaceWith(jNode.attr("alt"));
+        return;
+    }
+}
+
+function replaceCritAck (jNode) {
+    var oldSrc  = jNode.attr ("src");
+    jNode.attr("alt", "&#10004;" + jNode.attr("alt").split(":")[3]);
+    jNode.replaceWith(jNode.attr("alt"));
+}
+
+function replaceWarn (jNode) {
+    var oldSrc  = jNode.attr ("src");
+//    jNode.attr("alt", "W " + jNode.attr("alt").split(":")[2]);
+    jNode.attr("alt", "&#128577;" + jNode.attr("alt").split(":")[2]);
+    jNode.replaceWith(jNode.attr("alt"));
+}
+
+function newreplaceWarn (jNode) {
+    var oldSrc  = jNode.attr ("src");
+    if (jNode.attr("alt") !== 'yellow' ) {
+        jNode.attr("alt", "&#128577;" + jNode.attr("alt").split(":")[2]);
+        jNode.replaceWith(jNode.attr("alt"));
+    } else {
+        jNode.attr("alt", "&#128577;");
+        jNode.replaceWith(jNode.attr("alt"));
+        return;
+    }
+}
