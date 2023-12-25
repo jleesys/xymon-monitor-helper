@@ -23,10 +23,14 @@ waitForKeyElements ("[src$='yellow-recent.gif']", replaceWarn);
 function replaceCrit (jNode) {
     var oldSrc  = jNode.attr ("src");
     if (jNode.attr("alt") !== 'red' ) {
-        jNode.attr("alt", "&#129397;" + jNode.attr("alt").split(":")[2]);
+        // Emoji Replacements:
+        // 129397 feverish face
+        // 128308 red circle
+        jNode.attr("alt", "&#128308;" + jNode.attr("alt").split(":")[2]);
         jNode.replaceWith(jNode.attr("alt"));
     } else {
-        jNode.attr("alt", "&#129397;");
+        // Emoji Replacements: See above.
+        jNode.attr("alt", "&#128308;");
         jNode.replaceWith(jNode.attr("alt"));
         return;
     }
@@ -34,17 +38,25 @@ function replaceCrit (jNode) {
 
 function replaceCritAck (jNode) {
     var oldSrc  = jNode.attr ("src");
-    jNode.attr("alt", "&#10004;" + jNode.attr("alt").split(":")[3]);
+    jNode.attr("alt", "&#9989;" + jNode.attr("alt").split(":")[3]);
     jNode.replaceWith(jNode.attr("alt"));
 }
 
 function replaceWarn (jNode) {
     var oldSrc  = jNode.attr ("src");
     if (jNode.attr("alt") !== 'yellow' ) {
-        jNode.attr("alt", "&#128577;" + jNode.attr("alt").split(":")[2]);
+        // Debugging. Ignore.
+        //jNode.attr("src", "http://172.16.100.72/xymon/gifs/yellow-recent.gif");
+
+        // Emoji Replacements:
+        //128577 frowning face
+        //128992 orange circle (Used originally but difficult to differentiate from Red colored alerts)
+        //128993 yellow circle
+        jNode.attr("alt", "&#128993;" + jNode.attr("alt").split(":")[2]);
         jNode.replaceWith(jNode.attr("alt"));
     } else {
-        jNode.attr("alt", "&#128577;");
+        // Emoji Replacements: See above.
+        jNode.attr("alt", "&#128993;");
         jNode.replaceWith(jNode.attr("alt"));
         return;
     }
