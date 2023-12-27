@@ -1,6 +1,6 @@
 // Replaces current warn/crit icons on xYmon Dashboard to include time duration.
 // ==UserScript==
-// @name     xYmon Check
+// @name     Simplified xYmon Check
 // @match    http://172.31.100.22/*
 // @include    http://172.16.100.72/*
 // @include  http://10.231.22.196/dashboards/bbnewnagios.html
@@ -8,12 +8,6 @@
 // @require  https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @grant    GM_addStyle
 // ==/UserScript==
-
-//GM_addStyle ( "                                 \
-//    * {                                         \
-//        background-image: none !important;      \
-//    }                                           \
-//" );
 
 waitForKeyElements ("[src$='red-ack.gif']", replaceCritAck);
 waitForKeyElements ("[src$='red-recent.gif']", replaceCrit);
@@ -23,41 +17,18 @@ waitForKeyElements ("[src$='yellow-recent.gif']", replaceWarn);
 function replaceCrit (jNode) {
     var oldSrc  = jNode.attr ("src");
     if (jNode.attr("alt") !== 'red' ) {
-        // Emoji Replacements:
-        // 129397 feverish face
-        // 128308 red circle
-        jNode.attr("alt", "&#128308;" + jNode.attr("alt").split(":")[2]);
-        jNode.replaceWith(jNode.attr("alt"));
-    } else {
-        // Emoji Replacements: See above.
-        jNode.attr("alt", "&#128308;");
-        jNode.replaceWith(jNode.attr("alt"));
-        return;
+        jNode.after(`<div>${jNode.attr("alt").split(":")[2]}</div>`);
     }
 }
 
 function replaceCritAck (jNode) {
     var oldSrc  = jNode.attr ("src");
-    jNode.attr("alt", "&#9989;" + jNode.attr("alt").split(":")[3]);
-    jNode.replaceWith(jNode.attr("alt"));
+    jNode.after(`<div>${jNode.attr("alt").split(":")[3]}</div>`);
 }
 
 function replaceWarn (jNode) {
     var oldSrc  = jNode.attr ("src");
     if (jNode.attr("alt") !== 'yellow' ) {
-        // Debugging. Ignore.
-        //jNode.attr("src", "http://172.16.100.72/xymon/gifs/yellow-recent.gif");
-
-        // Emoji Replacements:
-        //128577 frowning face
-        //128992 orange circle (Used originally but difficult to differentiate from Red colored alerts)
-        //128993 yellow circle
-        jNode.attr("alt", "&#128993;" + jNode.attr("alt").split(":")[2]);
-        jNode.replaceWith(jNode.attr("alt"));
-    } else {
-        // Emoji Replacements: See above.
-        jNode.attr("alt", "&#128993;");
-        jNode.replaceWith(jNode.attr("alt"));
-        return;
+        jNode.after(`<div>${jNode.attr("alt").split(":")[2]}</div>`);
     }
 }
